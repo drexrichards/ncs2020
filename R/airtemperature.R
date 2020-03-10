@@ -1,6 +1,6 @@
 #' Modelling of reduction in air temperature caused by ecosystems
 #'
-#' This function models reduction in air temperature caused by ecosystems, in comparison to urban land cover
+#' This function models reduction in air temperature caused by ecosystems, in comparison to urban land cover. It is based on a Singapore-specific land use regression so is not useful in other cities.
 #' @param lcm Land/ water cover map, including vegetation categories. Categories must follow Gaw et al. 2019, described in data(looktbl)
 #' @param lai Leaf area index - raster grid with cell sizes in metre units
 #' @return One raster indicating average reduction in temperature at 15:00
