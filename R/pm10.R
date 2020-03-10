@@ -7,7 +7,7 @@
 #' @return List with one raster ofDaily  PM10 removal in micrgrams. Second is the percentage decrease in PM10 concentration.
 #' @export
 
-pm10 <- function(lai, pbl, pm10){
+pm10.model <- function(lai, pbl, pm10){
 # use the equation Q = F*L*T*0.5 from Manes et al .2016
 # where F = V*C
 #C=concentration in air
@@ -23,7 +23,7 @@ pm10 <- function(lai, pbl, pm10){
 # 215 in 2013
 # urbancok et al 2017 a low day would be 32-70. Haze day 72 -310+
 
-qDAY75 <- (lai * (0.9671 * pm10) * (24*60*60) * 0.5) * res(eastcoast)[1] * res(eastcoast)[2]
+qDAY75 <- (lai * (0.9671 * pm10) * (24*60*60) * 0.5) * res(lai)[1] * res(lai)[2]
 #qDAY32 <- (lai * (0.9671 * 32) * (24*60*60) * 0.5) * 10 * 9.93
 
 
@@ -42,7 +42,7 @@ qDAY75 <- (lai * (0.9671 * pm10) * (24*60*60) * 0.5) * res(eastcoast)[1] * res(e
 # 8760 (hours per year) * land area covered by urban canopy
 
 # this one will do the annual removal. But first we need mean annual conc
-totalPM10_DAY75 <- pm10* pbl * 24*60*60 * (sum(!is.na(getValues(qDAY75 )))* res(eastcoast)[1] * res(eastcoast)[2])
+totalPM10_DAY75 <- pm10* pbl * 24*60*60 * (sum(!is.na(getValues(qDAY75 )))* res(lai)[1] * res(lai)[2])
 
 # percentage reduction in concentration
 #((sum(getValues(qDAY75),na.rm=T)) / totalPM10_DAY75 )*100

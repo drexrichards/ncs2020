@@ -1,11 +1,11 @@
 #' Modelling of runoff absorbtion by vegetation
 #'
-#' This function models PM10 removal by vegetation
+#' This function models runoff reduction by vegetation
 #' @param lcm Land/ water cover map, including vegetation categories. Categories must follow Gaw et al. 2019, described in data(looktbl)
 #' @param rainfallin Rainfall in mm
 #' @return Two rasters in a list, the first is proportion of runoff absorbed. Second is runoff in mm
 #' @export
-runoff <- function(lcm, rainfallin){
+runoff.model <- function(lcm, rainfallin){
   # make a new raster of curve numbers
   cnras <- reclassify(lcm, data.frame(looktbl$gaw.2019.code, looktbl$cn))
 
