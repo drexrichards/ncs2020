@@ -4,7 +4,7 @@
 #' @param lai Leaf area index - raster grid with cell sizes in metre units
 #' @param pbl Height of the planetary boundary layer in metres
 #' @param pm10 PM10 concentration in atmosphere (microgram per m3)
-#' @return List with one raster ofDaily  PM10 removal in micrgrams. Second is the percentage decrease in PM10 concentration.
+#' @return List with one raster of Daily  PM10 removal in micrgrams. Second is the percentage decrease in PM10 concentration.
 #' @export
 
 pm10.model <- function(lai, pbl, pm10){

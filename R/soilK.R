@@ -7,7 +7,7 @@
 #' @return K values
 #' @export
 
-soilerosion.model <- function(OM, C, Dg){
+soilK.model <- function(OM, C, Dg){
   # use Torri et al 1997
   # K = 0.0293(0.65-Dg + 0.24Dg^2) *
   #(exp(-0.0021 * OM/C * -0.0037 * (OM/C)^2 - 4.02 *C + 1.72C^2)

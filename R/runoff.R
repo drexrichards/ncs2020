@@ -7,7 +7,7 @@
 #' @export
 runoff.model <- function(lcm, rainfallin){
   # make a new raster of curve numbers
-  cnras <- reclassify(lcm, data.frame(looktbl$gaw.2019.code, looktbl$cn))
+  cnras <- reclassify(lcm, data.frame(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$cn))
 
   # estimate runoff for a given rainfall event
   # lets assume a 110 mm hourly rainfall event
@@ -51,7 +51,7 @@ runoff.model <- function(lcm, rainfallin){
   nrunoff[2,] <-  as.numeric(substr(names(nrunoff), 2,3))
 
   # make lookuptbl
-  looktbl2 <- looktbl
+  looktbl2 <- ncs2020::looktbl
   looktbl2$runoffj <- NA
 
   # we don't have date for cn less than 40. convert to this as min for now

@@ -3,14 +3,14 @@
 #' This function models reduction in air temperature caused by ecosystems, in comparison to urban land cover. It is based on a Singapore-specific land use regression so is not useful in other cities.
 #' @param lcm Land/ water cover map, including vegetation categories. Categories must follow Gaw et al. 2019, described in data(looktbl)
 #' @param lai Leaf area index - raster grid with cell sizes in metre units
-#' @return One raster indicating average reduction in temperature at 15:00
+#' @return One raster indicating average reduction in temperature due to vegetation at 15:00
 #' @export
 
 air.temp.model <- function(lcm, lai){
 
 
   # This model uses the old land cover map classes so needs correction using reclassify
-lcm<- raster::reclassify(lcm, cbind(looktbl$gaw.2019.code, looktbl$old.code))
+lcm<- raster::reclassify(lcm, cbind(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$old.code))
 
 
 
@@ -46,7 +46,7 @@ lcm<- raster::reclassify(lcm, cbind(looktbl$gaw.2019.code, looktbl$old.code))
   # this sets up a new raster stack with single layers for the different vegetation types
   lcmempty <- lcm
   lcmempty[,]<-0
-  lcmdisag <- stack(lcmempty,lcmempty,lcmempty,lcmempty,lcmempty)
+  lcmdisag <- raster::stack(lcmempty,lcmempty,lcmempty,lcmempty,lcmempty)
   lcmdisag[[1]][lcm == 5| lcm == 6] <- 1 # wetland and mangrove
   lcmdisag[[2]][lcm == 9| lcm == 10] <- 1 # unmanaged
   lcmdisag[[3]][lcm == 7] <- 1 # managed

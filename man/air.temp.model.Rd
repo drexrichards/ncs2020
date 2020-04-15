@@ -12,7 +12,7 @@ air.temp.model(lcm, lai)
 \item{lai}{Leaf area index - raster grid with cell sizes in metre units}
 }
 \value{
-One raster indicating average reduction in temperature at 15:00
+One raster indicating average reduction in temperature due to vegetation at 15:00
 }
 \description{
 This function models reduction in air temperature caused by ecosystems, in comparison to urban land cover. It is based on a Singapore-specific land use regression so is not useful in other cities.
