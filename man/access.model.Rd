@@ -2,23 +2,19 @@
 % Please edit documentation in R/greenaccess.R
 \name{access.model}
 \alias{access.model}
-\title{Modelling of public access to green space and natural ecosystems and ocean}
+\title{Modelling of public access to green space and natural ecosystems and open water}
 \usage{
 access.model(lcm, noentry = NULL, pop)
 }
 \arguments{
 \item{lcm}{Land/ water cover map, including vegetation categories. Categories must follow Gaw et al. 2019, described in data(looktbl). Must be a raster with map units in metres.}
 
-\item{R}{Rainfall erosivity (MJ/  mm / year). Can be either a raster or single value}
+\item{noentry}{Raster indicating areas of no entry with values of 1. Function can also be used without this value, defaults to no inaccessible space in the study area.}
 
-\item{K}{Soil erodibility factor. Can be either a raster with K values for different land cover types or a single value}
-
-\item{LS}{Topographic factors. Must be a raster. Creating an LS raster is straightforward but computationally expensive in R, so a function is not given.}
-
-\item{ndvi}{Normalised difference vegetation index}
+\item{pop}{Population given as a SpatialPointsDataFrame with one field for population, which is named "pop"}
 }
 \value{
-List of three rasters - the ecosystem service ES, structural impact SI, and absolute soil erosion A
+A stack of three raster maps indicating the population pressure (number of people) with access to each pixel of (1) accessible green space in a patch larger than 1 ha, (2) blue space, (3) natural space.
 }
 \description{
 This function models soil erosion

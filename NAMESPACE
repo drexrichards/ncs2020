@@ -2,6 +2,7 @@
 
 export(access.model)
 export(air.temp.model)
+export(noise.model)
 export(pm10.model)
 export(runoff.model)
 export(soilK.model)

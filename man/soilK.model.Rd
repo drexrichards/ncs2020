@@ -17,5 +17,5 @@ soilK.model(OM, C, Dg)
 K values
 }
 \description{
-This function estimates a soil K factor for a given soil condition
+This function estimates a soil K factor for a given soil condition, taking into account the organic matter content, clay content, and particle size distribution of the soil.
 }

@@ -13,4 +13,9 @@ RoxygenNote: 7.1.0
 Imports: 
     raster,
     sp,
-    velox
+    velox,
+    igraph,
+    gdistance,
+    rgeos,
+    dismo,
+    maptools

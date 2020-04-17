@@ -1,6 +1,6 @@
 #' Calculation of soil K factor based on soil data
 #'
-#' This function estimates a soil K factor for a given soil condition
+#' This function estimates a soil K factor for a given soil condition, taking into account the organic matter content, clay content, and particle size distribution of the soil.
 #' @param OM Percentage organic matter
 #' @param Cm percentage clay by mass
 #' @param Dg Geometric mean of the particle size distribution
