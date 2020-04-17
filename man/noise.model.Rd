@@ -36,7 +36,7 @@ noise.model(
 \item{frequency}{Frequency of the road traffic noise for analysis. Defaults to typical road traffic noise conditions.}
 }
 \value{
-A stack of three raster maps indicating the population pressure (number of people) with access to each pixel of (1) accessible green space in a patch larger than 1 ha, (2) blue space, (3) natural space.
+A stack of 6 raster maps, representing (1) noise after Spherical spreading, (2) noise after Atmospheric absorption, (3) noise after Barrier loss, (4) noise after Vegetation loss, (5) the vegetation ecosystem service, and (6) the location of noise sources.
 }
 \description{
 This function models soil erosion

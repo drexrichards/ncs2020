@@ -10,7 +10,7 @@
 #' @param humidity Humidity of the study area in %, defaults to Singapore typical conditions.
 #' @param temperature Temperature of the study area in degrees celsius, defaults to Singapore typical conditions.
 #' @param frequency Frequency of the road traffic noise for analysis. Defaults to typical road traffic noise conditions.
-#' @return A stack of three raster maps indicating the population pressure (number of people) with access to each pixel of (1) accessible green space in a patch larger than 1 ha, (2) blue space, (3) natural space.
+#' @return A stack of 6 raster maps, representing (1) noise after Spherical spreading, (2) noise after Atmospheric absorption, (3) noise after Barrier loss, (4) noise after Vegetation loss, (5) the vegetation ecosystem service, and (6) the location of noise sources.
 #' @export
 
 
@@ -66,7 +66,7 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
   rm(frN)
   rm(frO)
   rm(h)
-  rm(buildings2)
+
   rm(alpha)
 
   # ------------------------------------------------------#
@@ -78,7 +78,7 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
   ccRaster[,]<-1
 
   # subtract max value of euclidean grid and take absolute value
-  eucdistz <- abs(eucdist - max(getValues(eucdist)))
+  eucdistz <- abs(eucdist - max(raster::getValues(eucdist)))
 
   # reclassif based on foliage and ground cover loss rates
   veglossrate <- raster::reclassify(lcm, ncs2020::looktbl[,c(2,9)])
@@ -159,8 +159,8 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
 
   # assume that
   buildings2<-velox(lcm)
-  buildingspts <- sp::SpatialPointsDataFrame(coordinates(buildings),
-                                         proj4string = crs(buildings),
+  buildingspts <- sp::SpatialPointsDataFrame(sp::coordinates(buildings),
+                                         proj4string = raster::crs(buildings),
                                          data= data.frame("bdgrh_9090" = buildings$bdgrh_9090  ) )
   buildingspts <- rgeos::gBuffer(buildingspts, width = 5,byid=T)
   buildings2$rasterize(spdf=buildingspts,  field="bdgrh_9090",
@@ -183,7 +183,7 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
 
   es<- raster::rasterToPoints(elevsource)
   #es<- es[sample(1:length(es[,1]), erandom, F),]
-  es2 <- dismo::voronoi(es, ext = extent(elevsource))
+  es2 <- dismo::voronoi(es, ext = raster::extent(elevsource))
   es2 <- maptools::spCbind(es2, es[,3])
 
   # another rasterize, can't be helped
@@ -203,7 +203,7 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
   # euc distance from barriers
   ps <- potbar
   ps[potbar ==0] <- NA
-  bardist <- distance(ps) #in metres already
+  bardist <- raster::distance(ps) #in metres already
   # make so cannot quite be 0
   bardist[bardist ==0]<-1
   rm(ps)
@@ -225,7 +225,7 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
   hb<-hb[!is.na(hb$hb),]
   hb<-hb[!hb$hb ==0,]
 
-  hb2 <- dismo::voronoi(hb, ext = extent(lcm))
+  hb2 <- dismo::voronoi(hb, ext = raster::extent(lcm))
 
   hb3<-velox(lcm)
   hb3$rasterize(spdf=hb2,  field="hb",
@@ -237,13 +237,13 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
   # ie those that do not have any obstructions from closest sound source
 
   # calculate x and y of each cell
-  xm<-matrix(xFromCell(lcm,c(1:ncell(lcm))),nrow=nrow(lcm),byrow=TRUE)
-  xras<-raster::raster(xm,xmn=xmin(lcm), xmx=xmax(lcm),ymn=ymin(lcm),ymx=ymax(lcm))
-  projection(xras)<- crs(lcm)
+  xm<-matrix(raster::xFromCell(lcm,c(1:raster::ncell(lcm))),nrow=raster::nrow(lcm),byrow=TRUE)
+  xras<-raster::raster(xm,xmn=raster::xmin(lcm), xmx=raster::xmax(lcm),ymn=raster::ymin(lcm),ymx=raster::ymax(lcm))
+  raster::projection(xras)<- raster::crs(lcm)
 
-  ym<-matrix(yFromCell(lcm,c(1:ncell(lcm))),nrow=nrow(lcm),byrow=TRUE)
-  yras<-raster::raster(ym,xmn=xmin(lcm), xmx=xmax(lcm),ymn=ymin(lcm),ymx=ymax(lcm))
-  projection(yras)<- crs(lcm)
+  ym<-matrix(raster::yFromCell(lcm,c(1:raster::ncell(lcm))),nrow=raster::nrow(lcm),byrow=TRUE)
+  yras<-raster::raster(ym,xmn=raster::xmin(lcm), xmx=raster::xmax(lcm),ymn=raster::ymin(lcm),ymx=raster::ymax(lcm))
+  raster::projection(yras)<- raster::crs(lcm)
   rm(xm)
   rm(ym)
 
@@ -254,13 +254,13 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
   closestsound <- hb4$as.RasterLayer(band = 1)
 
   # add x and y
-  locx <- reclassify(closestsound,
-                     as.matrix(data.frame(1:length(hb2), coordinates(hb2)[,1])))
-  locy <- reclassify(closestsound,
-                     as.matrix(data.frame(1:length(hb2), coordinates(hb2)[,2])))
+  locx <- raster::reclassify(closestsound,
+                     as.matrix(data.frame(1:length(hb2), sp::coordinates(hb2)[,1])))
+  locy <- raster::reclassify(closestsound,
+                     as.matrix(data.frame(1:length(hb2), sp::coordinates(hb2)[,2])))
 
   # calculate euclidean directions from barriers
-  bardir <- atan2((yras-locy), (xras-locx) )
+  bardir <- raster::atan2((yras-locy), (xras-locx) )
   # units are in radians
   bardir <- bardir * 57.2958
   # units are in degrees. degrees to face the building/ obstruction
@@ -273,14 +273,14 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
   es4$rasterize(spdf=es2,  field="rowg",
                 background=0)
   closestsound <- es4$as.RasterLayer(band = 1)
-  locx <- reclassify(closestsound,
+  locx <- raster::reclassify(closestsound,
                      as.matrix(data.frame(1:length(roadsX2[,1]), roadsX2[,1])))
-  locy <- reclassify(closestsound,
+  locy <- raster::reclassify(closestsound,
                      as.matrix(data.frame(1:length(roadsX2[,1]), roadsX2[,2])))
 
 
   # calculate euclidean directions from sounds
-  eucdir <- atan2((yras-locy), (xras-locx) )
+  eucdir <- raster::atan2((yras-locy), (xras-locx) )
   # units are in radians
   eucdir <- eucdir * 57.2958
 
@@ -370,10 +370,10 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
 
 
   # plotting test
-  plotted <- stack(DB - ssl ,
-                   DB - ssl - aal ,
-                   DB - ssl - aal - bar,
-                   DB - ssl - aal - bar - Hloss)
+  plotted <- raster::stack(dB - ssl ,
+                   dB - ssl - aal ,
+                   dB - ssl - aal - bar,
+                   dB - ssl - aal - bar - Hloss)
   names(plotted) <- c("Spherical spreading",
                       "Atmospheric absorption",
                       "Barrier loss",
@@ -389,7 +389,7 @@ noise.model <- function(lcm, dem, buildings, roads, dB = 70, erandom = 100,
   #plot(stack(plotted[[3]] - plotted[[4]],
   #    roads))
 
-  plotted<-stack(plotted, plotted[[3]] - plotted[[4]], roadsX)
+  plotted<-raster::stack(plotted, plotted[[3]] - plotted[[4]], roadsX)
   names(plotted)<- c("Spherical spreading",
                      "Atmospheric absorption",
                      "Barrier loss",

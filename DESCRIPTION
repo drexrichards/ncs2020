@@ -18,4 +18,5 @@ Imports:
     gdistance,
     rgeos,
     dismo,
-    maptools
+    maptools,
+    deldir
