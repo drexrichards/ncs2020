@@ -71,7 +71,7 @@ noentry[,]<-0
 
 
 # rasterize the point data
-  popD3<-rasterize(x=pop,
+  popD3<-raster::rasterize(x=pop,
                    y = lcm,
                    field = "pop",
                    fun=sum,
@@ -114,7 +114,7 @@ naturalPOP <- popD3
 natural[is.na(natural)]<-0
 naturalPOP[natural != 1 ] <- 0
 
-out<- stack(
+out<- raster::stack(
   # population within 300m of 1 ha green space
   gr1haPOP,
   # population within 300m of a blue space
