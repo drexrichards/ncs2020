@@ -7,7 +7,7 @@
 #' @export
 runoff.model <- function(lcm, rainfallin){
   # make a new raster of curve numbers
-  cnras <- reclassify(lcm, data.frame(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$cn))
+  cnras <- raster::reclassify(lcm, data.frame(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$cn))
 
   # estimate runoff for a given rainfall event
   # lets assume a 110 mm hourly rainfall event
@@ -93,7 +93,7 @@ runoff.model <- function(lcm, rainfallin){
 
 
   # map runoff using a lookup table
-  runrasmm <- reclassify(cnras, data.frame(looktbl2$cn, looktbl2$runoffj))
+  runrasmm <- raster::reclassify(cnras, data.frame(looktbl2$cn, looktbl2$runoffj))
 
   # convert runras into % of rainfall for comparability
   runras <- (rainfallin-runrasmm)/rainfallin
