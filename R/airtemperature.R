@@ -88,18 +88,17 @@ lcm<- raster::reclassify(lcm, cbind(ncs2020::looktbl$gaw.2019.code, ncs2020::loo
   #  (lcmdisag$lai * 0.6032)
 
 
-  tempmap <-  28.4834+ #intercept
-    ((lcmdisag$unmanaged200T)* -2.4011) +
-    (lcmdisag$managed50 * -1.4469) +
-    (lcmdisag$grass100 * -0.9781) +
-    (lcmdisag$lai100 * -0.8995) +
-    1.850823
+  tempmap <-  28.5141+ #intercept
+    ((leondisag$unmanaged200T)* -2.4634) +
+    (leondisag$managed50 * -1.5090) +
+    (leondisag$lai100 * -0.9870) +
+    1.836705
 
   tempdif <-   #intercept
-    ((lcmdisag$unmanaged200T)* -2.4011) +
-    (lcmdisag$managed50 * -1.4469) +
-    (lcmdisag$grass100 * -0.9781) +
-    (lcmdisag$lai100 * -0.8995)
+    ((leondisag$unmanaged200T)* -2.4634) +
+    (leondisag$managed50 * -1.5090) +
+    (leondisag$lai100 * -0.9870)
+
 
   tempmap[is.na(lcm )] <- NA
   tempmap[lcm  == 1 | lcm  == 2] <- NA

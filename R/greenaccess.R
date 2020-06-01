@@ -1,6 +1,6 @@
 #' Modelling of public access to green space and natural ecosystems and open water
 #'
-#' This function models soil erosion
+#' This function models public access to green space, natural ecosystems, and open water.
 #' @param lcm Land/ water cover map, including vegetation categories. Categories must follow Gaw et al. 2019, described in data(looktbl). Must be a raster with map units in metres.
 #' @param noentry Raster indicating areas of no entry with values of 1. Function can also be used without this value, defaults to no inaccessible space in the study area.
 #' @param pop Population given as a SpatialPointsDataFrame with one field for population, which is named "pop"

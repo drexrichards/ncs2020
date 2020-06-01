@@ -17,5 +17,5 @@ access.model(lcm, noentry = NULL, pop)
 A stack of three raster maps indicating the population pressure (number of people) with access to each pixel of (1) accessible green space in a patch larger than 1 ha, (2) blue space, (3) natural space.
 }
 \description{
-This function models soil erosion
+This function models public access to green space, natural ecosystems, and open water.
 }

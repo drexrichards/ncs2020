@@ -39,5 +39,5 @@ noise.model(
 A stack of 6 raster maps, representing (1) noise after Spherical spreading, (2) noise after Atmospheric absorption, (3) noise after Barrier loss, (4) noise after Vegetation loss, (5) the vegetation ecosystem service, and (6) the location of noise sources.
 }
 \description{
-This function models soil erosion
+This function models noise attenuation by vegetation cover.
 }

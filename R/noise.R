@@ -1,6 +1,6 @@
 #' Modelling of noise attenuation by vegetation
 #'
-#' This function models soil erosion
+#' This function models noise attenuation by vegetation cover.
 #' @param lcm Land/ water cover map, including vegetation categories. Categories must follow Gaw et al. 2019, described in data(looktbl). Must be a raster with map units in metres.
 #' @param dem Raster digital elevation model in same resolution as land cover map.
 #' @param buildings PBuildings given as a SpatialPointsDataFrame with one field for building height.

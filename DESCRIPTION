@@ -1,7 +1,7 @@
 Package: ncs2020
 Type: Package
 Title: Modelling ecosystem services in Singapore
-Version: 0.1.0
+Version: 0.1.1
 Author: Dan Richards
 Maintainer: Dan Richards <richards@arch.ethz.ch>
 Description: This package contains tools for simulating some indicators of ecosystem services. It was developed in Singapore, although some models may be applicable in other cities.
@@ -19,3 +19,5 @@ Imports:
     dismo,
     maptools,
     deldir
+Depends: 
+    R (>= 2.10)

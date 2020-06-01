@@ -4,18 +4,14 @@
 \alias{soilK.model}
 \title{Calculation of soil K factor based on soil data}
 \usage{
-soilK.model(OM, C, Dg)
+soilK.model(Dg)
 }
 \arguments{
-\item{OM}{Percentage organic matter}
-
 \item{Dg}{Geometric mean of the particle size distribution}
-
-\item{Cm}{percentage clay by mass}
 }
 \value{
 K values
 }
 \description{
-This function estimates a soil K factor for a given soil condition, taking into account the organic matter content, clay content, and particle size distribution of the soil.
+This function estimates a soil K factor for a given soil condition, taking into account the particle size distribution of the soil.
 }

@@ -11,10 +11,10 @@ pm10.model(lai, pbl, pm10)
 
 \item{pbl}{Height of the planetary boundary layer in metres}
 
-\item{pm10}{PM10 concentration in atmosphere (microgram per m3)}
+\item{pm10}{PM10 concentration in atmosphere (micrograms per m3)}
 }
 \value{
-List with one raster of Daily  PM10 removal in micrgrams. Second is the percentage decrease in PM10 concentration.
+List with one raster of Daily  PM10 removal in micrograms. Second is the percentage decrease in PM10 concentration.
 }
 \description{
 This function models PM10 removal by vegetation
