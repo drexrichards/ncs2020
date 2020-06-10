@@ -21,7 +21,7 @@ noise.model(
 
 \item{dem}{Raster digital elevation model in same resolution as land cover map.}
 
-\item{buildings}{PBuildings given as a SpatialPointsDataFrame with one field for building height.}
+\item{buildings}{Buildings given as a SpatialPointsDataFrame with one field for building height.}
 
 \item{roads}{Rasterised road network in same resolution as land cover map.}
 

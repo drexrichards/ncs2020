@@ -2,6 +2,7 @@
 
 export(access.model)
 export(air.temp.model)
+export(lai.converter)
 export(noise.model)
 export(pm10.model)
 export(reclass.soilK)

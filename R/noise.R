@@ -3,7 +3,7 @@
 #' This function models noise attenuation by vegetation cover.
 #' @param lcm Land/ water cover map, including vegetation categories. Categories must follow Gaw et al. 2019, described in data(looktbl). Must be a raster with map units in metres.
 #' @param dem Raster digital elevation model in same resolution as land cover map.
-#' @param buildings PBuildings given as a SpatialPointsDataFrame with one field for building height.
+#' @param buildings Buildings given as a SpatialPointsDataFrame with one field for building height.
 #' @param roads Rasterised road network in same resolution as land cover map.
 #' @param dB Decibels for road traffic noise sources.
 #' @param erandom Number of random noise sources to generate (has direct impact on processing time)

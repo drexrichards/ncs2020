@@ -4,7 +4,7 @@
 \alias{pm10.model}
 \title{Modelling of PM10 removal by vegetation}
 \usage{
-pm10.model(lai, pbl, pm10)
+pm10.model(lai, lcm, pbl, pm10)
 }
 \arguments{
 \item{lai}{Leaf area index - raster grid with cell sizes in metre units}
