@@ -27,8 +27,10 @@ underint[,]<- 0
 # extract the data for forest only and convert
 # get veg height
 underint[lcm == 9] <- vegheight[lcm==9]
+
+#underint <-  raster::mask(underint, lcm==9, updatevalue = vegheight,maskvalue=0)
 # convert to the proportion that 2.5 is
-underint <- 2.5/underint
+underint <- instrumentheight/underint
 underint[underint > 1] <- 0
 # so now we know how much % is understorey, can calculate the total
 underint <- ((underint*0.9555)+-0.0138) # this is the proportion of the leaf density/ therefore by inference also the proportion of LAI

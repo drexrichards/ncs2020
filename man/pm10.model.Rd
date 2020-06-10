@@ -9,6 +9,8 @@ pm10.model(lai, lcm, pbl, pm10)
 \arguments{
 \item{lai}{Leaf area index - raster grid with cell sizes in metre units}
 
+\item{lcm}{Land cover map using Gaw et al. typology}
+
 \item{pbl}{Height of the planetary boundary layer in metres}
 
 \item{pm10}{PM10 concentration in atmosphere (micrograms per m3)}
