@@ -33,15 +33,15 @@ soilerosion.model <- function(lcm, R, K, LS, ndvi){
   quantile(A, c(0.5, 0.75,0.95,0.99))
   # 180 000 tonnes or about 160714 metric tons is about 1m depth of 1 ha
 
+
+  # calculate ES as SI- fraction of eroded soil after considering C
+  ES <-SI-A
+
   # convert to actual tonnes rather than tonnes per ha
   # area of a cell in m is res(eastcoast)[1] * res(eastcoast)[2] assuming map units are m
   ES <- ES * ((res(lcm)[1] * res(lcm)[2])/10000)
   SI <- SI * ((res(lcm)[1] * res(lcm)[2])/10000)
   A <- A * ((res(lcm)[1] * res(lcm)[2])/10000)
-
-  # calculate ES as SI- fraction of eroded soil after considering C
-  ES <-SI-A
-
 
   # remove 0 values - no soil loss on concrete
   SI[lcm == 3] <- NA
