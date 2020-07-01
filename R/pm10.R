@@ -10,6 +10,10 @@
 
 pm10.model <- function(lai, lcm, pbl, pm10){
 
+  # This model uses the old land cover map classes so needs correction using reclassify
+  lcm<- raster::reclassify(lcm, cbind(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$old.code))
+
+
 qDAY75 <- ((0.0064/6) * pm10* 1e-6 ) * ( (raster::res(lai)[1] * raster::res(lai)[2])) * lai *  (24*60 * 60) * 0.5
 # units are now in grams already
 

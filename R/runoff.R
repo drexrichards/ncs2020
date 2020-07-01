@@ -6,6 +6,11 @@
 #' @return Two rasters in a list, the first is proportion of runoff absorbed. Second is runoff in mm
 #' @export
 runoff.model <- function(lcm, rainfallin){
+
+
+  # This model uses the old land cover map classes so needs correction using reclassify
+  lcm<- raster::reclassify(lcm, cbind(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$old.code))
+
   # make a new raster of curve numbers
   cnras <- raster::reclassify(lcm, data.frame(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$cn))
 

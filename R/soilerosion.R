@@ -11,6 +11,12 @@
 
 soilerosion.model <- function(lcm, R, K, LS, ndvi){
 
+
+  # This model uses the old land cover map classes so needs correction using reclassify
+  lcm<- raster::reclassify(lcm, cbind(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$old.code))
+
+
+
   # first calculate C from ndvi as per Knijff et al 2000
   ndvi[ ndvi < 0] <- 0
 

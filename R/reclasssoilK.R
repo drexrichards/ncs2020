@@ -7,6 +7,11 @@
 
 reclass.soilK <- function(lcm){
 
+  # This model uses the old land cover map classes so needs correction using reclassify
+  lcm<- raster::reclassify(lcm, cbind(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$old.code))
+
+
+
   K <- raster::reclassify(lcm, as.matrix(ncs2020::looktbl[,c(11,8)]))
 K
 }
