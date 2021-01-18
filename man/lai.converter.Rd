@@ -4,7 +4,7 @@
 \alias{lai.converter}
 \title{Conversion of partial LAI to full LAI}
 \usage{
-lai.converter(lcm, lai, vegheight, instrumentheight)
+lai.converter(lcm, lai, vegheight, instrumentheight, underlai)
 }
 \arguments{
 \item{lcm}{Land/ water cover map, including vegetation categories. Categories must follow Gaw et al. 2019, described in data(looktbl)}
@@ -14,6 +14,8 @@ lai.converter(lcm, lai, vegheight, instrumentheight)
 \item{vegheight}{Vegetation height in metres}
 
 \item{instrumentheight}{Height in metres of instrument used to measure LAI}
+
+\item{underlai}{Arbitrary LAI to assign to areas below instrument for turf and shrub locations}
 }
 \value{
 One raster of full LAI
