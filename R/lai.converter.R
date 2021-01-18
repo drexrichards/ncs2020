@@ -5,10 +5,11 @@
 #' @param lai Leaf area index - raster grid with cell sizes in metre units
 #' @param vegheight Vegetation height in metres
 #' @param instrumentheight Height in metres of instrument used to measure LAI
+#' @param underlai Arbitrary LAI to assign to areas below instrument for turf and shrub locations
 #' @return One raster of full LAI
 #' @export
 
-lai.converter <- function(lcm, lai, vegheight, instrumentheight){
+lai.converter <- function(lcm, lai, vegheight, instrumentheight, underlai){
 
 
   # This model uses the old land cover map classes so needs correction using reclassify
@@ -52,8 +53,8 @@ lai[lcm == 3]<- 0
 lai[lcm == 4]<- 0
 
 # for grass, make it 2 minimum
-lai[lcm == 10 & lai < 2] <- 2
-lai[lcm == 8 & lai < 2] <- 2
+lai[lcm == 10 & lai < underlai] <- underlai
+lai[lcm == 8 & lai < underlai] <- underlai
 
 # add the canopy < 2m lai
 lai <- lai + underint

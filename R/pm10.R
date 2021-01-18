@@ -8,7 +8,7 @@
 #' @return List with one raster of Daily  PM10 removal in micrograms. Second is the percentage decrease in PM10 concentration.
 #' @export
 
-pm10.model <- function(lai, lcm, pbl, pm10){
+pm10.model <- function(lai, lcm, pbl){
 
   # This model uses the old land cover map classes so needs correction using reclassify
   lcm<- raster::reclassify(lcm, cbind(ncs2020::looktbl$gaw.2019.code, ncs2020::looktbl$old.code))
